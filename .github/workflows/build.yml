@@ -30,21 +30,25 @@ jobs:
               pacman-key --populate archlinux
               printf "Server = https://mirrors.aliyun.com/archlinux/\$repo/os/\$arch\nServer = https://mirrors.tuna.tsinghua.edu.cn/archlinux/\$repo/os/\$arch\n" > /etc/pacman.d/mirrorlist
               pacman -Syu --noconfirm --needed archiso rsync
-              # overlay official releng boot configs (syslinux + systemd-boot entries)
               rsync -a /usr/share/archiso/configs/releng/syslinux/ /profile/syslinux/
               rsync -a /usr/share/archiso/configs/releng/efiboot/ /profile/efiboot/
               mkarchiso -v -w /work -o /out /profile
             '
 
-      - name: List ISO
-        run: ls -lh out/
+      - name: Split ISO into <2GB chunks (GitHub Release asset limit)
+        run: |
+          cd out
+          ISO=$(ls *.iso | head -1)
+          split -b 1800M -d "${ISO}" "${ISO}.part-"
+          rm -f "${ISO}"
+          ls -lh
 
-      - name: Upload ISO to Release
+      - name: Upload chunks to Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: latest
           name: Arch Hyprland ISO
-          files: out/*.iso
-          overwrite: true
+          files: out/*.iso.part-*
+          overwrite_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
