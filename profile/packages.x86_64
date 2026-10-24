@@ -46,8 +46,9 @@ wireplumber
 pavucontrol
 
 # Fonts
-ttf-wqy-microhei
-ttf-wqy-zenhei
+noto-fonts-cjk
+noto-fonts-extra
+ttf-dejavu
 ttf-jetbrains-mono-nerd
 otf-font-awesome
 
@@ -61,7 +62,7 @@ gnome-themes-extra
 timeshift
 zram-generator
 htop
-neofetch
+fastfetch
 nvtop
 gparted
 ufw
