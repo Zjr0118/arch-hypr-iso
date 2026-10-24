@@ -1,0 +1,86 @@
+# Base
+base
+linux
+linux-firmware
+base-devel
+git
+curl
+wget
+nano
+vim
+networkmanager
+sudo
+zsh
+openssh
+btrfs-progs
+archinstall
+
+# Hyprland core (Wayland compositor)
+hyprland
+waybar
+rofi
+alacritty
+thunar
+thunar-archive-plugin
+thunar-volman
+gvfs
+gvfs-mtp
+grim
+slop
+wl-clipboard
+swappy
+swayidle
+swaylock
+polkit-gnome
+xdg-desktop-portal
+xdg-desktop-portal-hyprland
+
+# Audio
+pipewire
+pipewire-pulse
+wireplumber
+pavucontrol
+
+# Fonts
+ttf-wqy-microhei
+ttf-wqy-zenhei
+ttf-jetbrains-mono-nerd
+otf-font-awesome
+
+# Icons / themes
+papirus-icon-theme
+gtk3
+gtk4
+gnome-themes-extra
+
+# System tools
+timeshift
+zram-generator
+htop
+neofetch
+nvtop
+gparted
+ufw
+rsync
+unrar
+zip
+unzip
+p7zip
+usbutils
+lsb-release
+
+# Dev stack
+python
+python-pip
+nodejs
+npm
+github-cli
+nmap
+sshfs
+dnsutils
+net-tools
+
+# Apps
+chromium
+mpv
+firefox

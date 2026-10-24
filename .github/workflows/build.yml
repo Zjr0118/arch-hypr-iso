@@ -1,0 +1,48 @@
+name: Build Arch Hyprland ISO
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build ISO inside archlinux:base-devel container
+        run: |
+          mkdir -p out
+          docker run --rm --privileged \
+            -v "${GITHUB_WORKSPACE}/profile:/profile:ro" \
+            -v "${GITHUB_WORKSPACE}/out:/out" \
+            -w /work \
+            archlinux:base-devel \
+            bash -c '
+              set -euxo pipefail
+              pacman-key --init
+              pacman-key --populate archlinux
+              # use China mirrors for speed inside container
+              printf "Server = https://mirrors.aliyun.com/archlinux/\$repo/os/\$arch\nServer = https://mirrors.tuna.tsinghua.edu.cn/archlinux/\$repo/os/\$arch\n" > /etc/pacman.d/mirrorlist
+              pacman -Syu --noconfirm --needed archiso
+              mkarchiso -v -w /work -o /out /profile
+            '
+
+      - name: List ISO
+        run: ls -lh out/
+
+      - name: Upload ISO to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Arch Hyprland ISO
+          files: out/*.iso
+          overwrite: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

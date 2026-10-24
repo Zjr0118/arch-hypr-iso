@@ -1,0 +1,111 @@
+{
+  "additional_packages": [
+    "base-devel",
+    "git",
+    "curl",
+    "wget",
+    "nano",
+    "vim",
+    "networkmanager",
+    "sudo",
+    "zsh",
+    "openssh",
+    "btrfs-progs",
+    "hyprland",
+    "waybar",
+    "rofi",
+    "alacritty",
+    "thunar",
+    "pipewire",
+    "pipewire-pulse",
+    "wireplumber",
+    "polkit-gnome",
+    "ttf-wqy-microhei",
+    "ttf-jetbrains-mono-nerd",
+    "papirus-icon-theme",
+    "timeshift",
+    "zram-generator",
+    "htop",
+    "neofetch",
+    "ufw",
+    "python",
+    "nodejs",
+    "npm",
+    "github-cli",
+    "chromium",
+    "mpv"
+  ],
+  "archinstall_language": "zh_CN",
+  "bootloader": "systemd-boot",
+  "config_version": "2.7.0",
+  "custom_commands": [],
+  "disk_config": {
+    "device": "/dev/nvme0n1",
+    "partitions": [
+      {
+        "boot": true,
+        "format": "fat32",
+        "mountpoint": "/boot",
+        "size": "512MiB",
+        "start": "0MiB"
+      },
+      {
+        "format": "btrfs",
+        "mountpoint": "/",
+        "size": "100%",
+        "start": "512MiB"
+      }
+    ],
+    "swap": null
+  },
+  "hostname": "arch-hypr",
+  "keyboard": "us",
+  "locale": "zh_CN.UTF-8",
+  "mirror-region": {
+    "China": true
+  },
+  "ntp": true,
+  "packages": [
+    "base",
+    "linux",
+    "linux-firmware"
+  ],
+  "profile": {
+    "profile": "minimal"
+  },
+  "root_password": "",
+  "script": "guided",
+  "swap": false,
+  "timezone": "Asia/Shanghai",
+  "users": [
+    {
+      "password": "",
+      "sudo": true,
+      "username": "archuser"
+    }
+  ],
+  "btrfs": {
+    "subvolumes": [
+      {
+        "mountpoint": "/",
+        "subvolume": "@"
+      },
+      {
+        "mountpoint": "/home",
+        "subvolume": "@home"
+      },
+      {
+        "mountpoint": "/var/log",
+        "subvolume": "@log"
+      },
+      {
+        "mountpoint": "/var/cache",
+        "subvolume": "@cache"
+      },
+      {
+        "mountpoint": "/snapshots",
+        "subvolume": "@snapshots"
+      }
+    ]
+  }
+}
