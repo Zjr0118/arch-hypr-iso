@@ -1,3 +1,7 @@
+# Bootloader infra (mkarchiso)
+syslinux
+edk2-shell
+
 # Base
 base
 linux

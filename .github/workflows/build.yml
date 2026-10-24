@@ -20,7 +20,7 @@ jobs:
         run: |
           mkdir -p out
           docker run --rm --privileged \
-            -v "${GITHUB_WORKSPACE}/profile:/profile:ro" \
+            -v "${GITHUB_WORKSPACE}/profile:/profile" \
             -v "${GITHUB_WORKSPACE}/out:/out" \
             -w /work \
             archlinux:base-devel \
@@ -28,9 +28,11 @@ jobs:
               set -euxo pipefail
               pacman-key --init
               pacman-key --populate archlinux
-              # use China mirrors for speed inside container
               printf "Server = https://mirrors.aliyun.com/archlinux/\$repo/os/\$arch\nServer = https://mirrors.tuna.tsinghua.edu.cn/archlinux/\$repo/os/\$arch\n" > /etc/pacman.d/mirrorlist
-              pacman -Syu --noconfirm --needed archiso
+              pacman -Syu --noconfirm --needed archiso rsync
+              # overlay official releng boot configs (syslinux + systemd-boot entries)
+              rsync -a /usr/share/archiso/configs/releng/syslinux/ /profile/syslinux/
+              rsync -a /usr/share/archiso/configs/releng/efiboot/ /profile/efiboot/
               mkarchiso -v -w /work -o /out /profile
             '
 
